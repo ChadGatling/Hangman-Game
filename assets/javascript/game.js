@@ -43,14 +43,14 @@ var guessWordLowerCase = guessWord.toLowerCase(); // lower case version of guess
 var lettersGuessed = []; // gameplay built list of letters the player has guessed
 var playing = false; // playing boolean
 var answer = []; // guessWord in array form used to build the word as the player guesses correct letters
-var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",]; // alphabet to campare against
+var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]; // alphabet to campare against
 var lives = 10; // lives 
 var correctGuess = false; // correct guess or not
 var missingLetters; // number of missing letters
 
 console.log("Answer: " + guessWord); // debug
 
-for (var i = 0; i <guessWord.length; i++) { // fill in answer with spaces or punctiation
+for (var i = 0; i < guessWord.length; i++) { // fill in answer with spaces or punctiation
 	if (guessWord[i] === " ") {
 		answer.splice(i, 1, "&nbsp");
 	}
@@ -71,22 +71,28 @@ for (var i = 0; i <guessWord.length; i++) { // fill in answer with spaces or pun
 document.onkeyup = function(event){ // on key pressed
 
 	var guess = alphabet.find(isLetter); // variable containing the letter just pressed
+	console.log(guess)
 	console.log("Key: " + event.key);
+	console.log(lives);
+	console.log("look here")
+	console.log(alphabet.indexOf(guess))
+	console.log(alphabet.indexOf(";"))
 
 	if (event.key === "Enter" && playing === false) { // before starting the game (tittle screen) and enter key is pressed
 		console.log("Starting new Game.");
+		console.log(lives);
+
 		document.querySelector("#game").innerHTML = // new HTML game div
 		"<h2>Your word is : " + answer.join("") + "</h2>" +
 		"<h3>Press a key to guess a letter.</h3>";
-		playing = true; // set playing to true
-	}
 
-	else if (playing === true) { // if game is being played (after title screen)
+		playing = true; // set playing to true
+
+	} else if (playing === true && alphabet.indexOf(guess) >1) { // if game is being played (after title screen)
 
 		if (lettersGuessed.some(notInList)) { // if the letter is already in the list
 			return; // do nothing
-		}
-		else {			
+		} else {			
 			lettersGuessed.push(guess); // add guessed letters to running list of the letters already guessed
 		}
 
@@ -94,12 +100,14 @@ document.onkeyup = function(event){ // on key pressed
 			if (guess === guessWordLowerCase[i]) { // if the letters match
 				answer.splice(i, 1, guessWord[i]); // change the letter at the i index to the guessed letter from the word
 				correctGuess = true;
+				console.log("letter was found set correct guess to true");
 			}
 		}
 
 		countMissingLetters(); // adjust missingLetters variable
-
+		console.log(correctGuess);
 		if (correctGuess === false) { // if letter was not in word
+			console.log("it was false")
 			lives--;
 		}
 
