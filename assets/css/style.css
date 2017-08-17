@@ -1,3 +1,6 @@
 body {
 	background-color: black;
+	color: green;
+	font-family: monospace, sans-serif;
+	text-align: center;
 }
