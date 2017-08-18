@@ -71,16 +71,10 @@ for (var i = 0; i < guessWord.length; i++) { // fill in answer with spaces or pu
 document.onkeyup = function(event){ // on key pressed
 
 	var guess = alphabet.find(isLetter); // variable containing the letter just pressed
-	console.log(guess)
-	console.log("Key: " + event.key);
-	console.log(lives);
-	console.log("look here")
-	console.log(alphabet.indexOf(guess))
-	console.log(alphabet.indexOf(";"))
+	console.log("Guess index: " + alphabet.indexOf(guess));
 
 	if (event.key === "Enter" && playing === false) { // before starting the game (tittle screen) and enter key is pressed
 		console.log("Starting new Game.");
-		console.log(lives);
 
 		document.querySelector("#game").innerHTML = // new HTML game div
 		"<h2>Your word is : " + answer.join("") + "</h2>" +
@@ -88,7 +82,7 @@ document.onkeyup = function(event){ // on key pressed
 
 		playing = true; // set playing to true
 
-	} else if (playing === true && alphabet.indexOf(guess) >1) { // if game is being played (after title screen)
+	} else if (playing === true && alphabet.indexOf(guess) >= 0) { // if game is being played (after title screen)
 
 		if (lettersGuessed.some(notInList)) { // if the letter is already in the list
 			return; // do nothing
